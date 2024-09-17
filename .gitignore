@@ -7,3 +7,5 @@ test.ipynb
 artifacts/train.csv
 artifacts/test.csv
 
+
+__pycache__
