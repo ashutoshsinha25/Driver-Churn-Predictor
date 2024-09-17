@@ -1,4 +1,9 @@
 data 
 .env 
 env
-artifacts
+app
+test.ipynb
+
+artifacts/train.csv
+artifacts/test.csv
+
