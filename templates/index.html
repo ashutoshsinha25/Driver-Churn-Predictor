@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Churn Predictor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background-color: #f0f2f6;
+        }
+        .input-box {
+            width: 100%;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.25rem;
+        }
+        .streamlit-button {
+            background-color: #ff4b4b;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        .streamlit-button:hover {
+            background-color: #ff2b2b;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+    <main class="flex-grow container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-center mb-6">Driver Churn Predictor</h1>
+        
+        <section class="mb-8 max-w-2xl mx-auto">
+            <h2 class="text-xl font-semibold mb-2">About</h2>
+            <p class="text-gray-700">This tool predicts the likelihood of a driver churning based on various factors. Enter the driver's information below to get a prediction.</p>
+        </section>
+
+        <section class="mb-8 max-w-2xl mx-auto">
+            <h2 class="text-xl font-semibold mb-2">Column Profiling</h2>
+            <div class="mb-6">
+                <h3 class="font-medium">Numeric Columns</h3>
+                <ul class="list-disc list-inside text-sm text-gray-600">
+                    <li>MMMM-YY: Reporting Date (Monthly)</li>
+                    <li>Driver_ID: Unique ID for drivers</li>
+                    <li>Age: Age of the driver</li>
+                    <li>Education_Level: 0 for 10+, 1 for 12+, 2 for graduate</li>
+                    <li>Income: Monthly average income of the driver</li>
+                    <li>Date Of Joining: Joining date for the driver</li>
+                    <li>LastWorkingDate: Last date of working for the driver</li>
+                    <li>Grade: Grade of the driver at the time of reporting</li>
+                    <li>Total Business Value: The total business value acquired by the driver in a month</li>
+                    <li>Quarterly Rating: 1,2,3,4,5 (higher is better)</li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-medium">Categorical Columns</h3>
+                <ul class="list-disc list-inside text-sm text-gray-600">
+                    <li>Gender: 0 for Male, 1 for Female</li>
+                    <li>City: City code of the driver</li>
+                    <li>Joining Designation: Designation of the driver at the time of joining</li>
+                </ul>
+            </div>
+        </section>
+
+        <form id="predictionForm" method="POST" class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="months_worked" class="block mb-1 text-sm font-medium">Total Months Worked</label>
+                    <input type="number" id="months_worked" name="months_worked" class="input-box" required>
+                </div>
+                <div>
+                    <label for="age" class="block mb-1 text-sm font-medium">Age</label>
+                    <input type="number" id="age" name="age" class="input-box" required>
+                </div>
+                <div>
+                    <label for="gender" class="block mb-1 text-sm font-medium">Gender</label>
+                    <select id="gender" name="gender" class="input-box" required>
+                        <option value="0">Male</option>
+                        <option value="1">Female</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="city" class="block mb-1 text-sm font-medium">City</label>
+                    <input type="text" id="city" name="city" class="input-box" required>
+                </div>
+                <div>
+                    <label for="education_level" class="block mb-1 text-sm font-medium">Education Level</label>
+                    <select id="education_level" name="education_level" class="input-box" required>
+                        <option value="0">High School</option>
+                        <option value="1">Undergraduate</option>
+                        <option value="2">Graduate</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="income" class="block mb-1 text-sm font-medium">Income</label>
+                    <input type="number" id="income" name="income" class="input-box" required>
+                </div>
+                <div>
+                    <label for="joining_date" class="block mb-1 text-sm font-medium">Date of Joining</label>
+                    <input type="date" id="joining_date" name="joining_date" class="input-box" required>
+                </div>
+                <div>
+                    <label for="joining_designation" class="block mb-1 text-sm font-medium">Joining Designation</label>
+                    <input type="number" id="joining_designation" name="joining_designation" class="input-box" required>
+                </div>
+                <div>
+                    <label for="grade" class="block mb-1 text-sm font-medium">Grade</label>
+                    <input type="text" id="grade" name="grade" class="input-box" required>
+                </div>
+                <div>
+                    <label for="total_business_value" class="block mb-1 text-sm font-medium">Total Business Value</label>
+                    <input type="number" id="total_business_value" name="total_business_value" class="input-box" required>
+                </div>
+                <div>
+                    <label for="quarterly_rating" class="block mb-1 text-sm font-medium">Quarterly Rating (1-5)</label>
+                    <input type="number" id="quarterly_rating" name="quarterly_rating" min="1" max="5" class="input-box" required>
+                </div>
+                <div>
+                    <label for="quarterly_rating_increase" class="block mb-1 text-sm font-medium">Quarterly Rating Increase</label>
+                    <input type="number" id="quarterly_rating_increase" name="quarterly_rating_increase" class="input-box" required>
+                </div>
+                <div>
+                    <label for="income_increase" class="block mb-1 text-sm font-medium">Income Increase</label>
+                    <input type="number" id="income_increase" name="income_increase" class="input-box" required>
+                </div>                
+            <button type="submit" class="streamlit-button w-full py-2 px-4 rounded font-medium mt-6">Predict Churn</button>
+        </form>
+
+        <div id="results" class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md hidden">
+            <h2 class="text-xl font-semibold mb-4">Churn Prediction Results</h2>
+            <div id="prediction-content"></div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-100 p-4 text-center text-sm text-gray-600">
+        <div class="flex justify-between items-center max-w-6xl mx-auto">
+            <div>
+                <strong>Tech Stack:</strong> Python, Flask, HTML, Tailwind CSS, Machine Learning, MLOps, GitHub Actions, AWS
+            </div>
+            <div>
+                <a href="mailto:your.email@example.com" class="text-blue-600 hover:underline mx-2">Email</a>
+                <a href="https://linkedin.com/in/yourprofile" class="text-blue-600 hover:underline mx-2">LinkedIn</a>
+                <a href="https://github.com/yourusername" class="text-blue-600 hover:underline mx-2">GitHub</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('predictionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            fetch('/', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                document.getElementById('results').classList.remove('hidden');
+                document.getElementById('prediction-content').innerHTML = `
+                <p class="mb-2"><strong>Churn Probability:</strong> ${data.churn_probability}%</p>
+                <p class="mb-2"><strong>Risk Level:</strong> ${data.risk_level}</p>
+                <p>Based on the provided information, this driver has a ${data.risk_level.toLowerCase()} risk of churning. Consider implementing retention strategies.</p>
+            `;
+        });
+        }
+    )
+    </script>
+</body>
+</html>

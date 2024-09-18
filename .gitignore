@@ -6,6 +6,7 @@ test.ipynb
 
 artifacts/train.csv
 artifacts/test.csv
+artifacts/eval_metrics.csv
 
 
 __pycache__
