@@ -1,12 +1,16 @@
 from flask import Flask, render_template, request
 from utils.data_preprocessing import DataPreprocessor
 from models.decision_tree import DecisionTreeModel
+from models.random_forest import RandomForestModel
+from models.xgboost_model import XGBoostModel 
+from models.lightgbm_model import LightGBModel
 
 
 app = Flask(__name__)
 
 def read_data(form_data):
     return {
+        "Input_Model" : form_data['model_val'],
         'total_months': form_data['months_worked'],
         'age': int(form_data['age']),
         'gender': int(form_data['gender']),
@@ -20,35 +24,37 @@ def read_data(form_data):
 
         # to be dropped 
         'DOJ': form_data['joining_date'],
-        #year
-        #month 
-        #date
         "quarterly_rating_increased":int(form_data['quarterly_rating_increase']),
         "income_increased":int(form_data['income_increase']),
     }
 
-def init_model():
-    return DecisionTreeModel()
+def init_model(val):
+    if val == "1":
+        return DecisionTreeModel()
+    elif val == "2":
+        return RandomForestModel()
+    elif val == "3":
+        return XGBoostModel()
+    else:
+        return LightGBModel()
 
-# Initialize the model
-model = init_model()
 
 @app.route('/app', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
         # Read data
         input_data = read_data(request.form)
-        # print(f"Input data: {input_data}", flush=True)
-        # # print(input_data)
-        # Process data
+        model_val = input_data['Input_Model']
+        # Initialize the model
+        model = init_model(model_val)
+        model_name = model.__str__()
+        # # Process data
         features = DataPreprocessor().process_data(input_data)
-        # # Make prediction
+        # # # Make prediction
         prediction = model.model_obj.predict(features)
-        # # Get prediction probabilities
+        # # # Get prediction probabilities
         probabilities = model.model_obj.predict_proba(features)[0]
-        # prediction=1
-        # probabilities=[0.15, 0.85]
-        return render_template('result.html', prediction=prediction, probabilities=probabilities)
+        return render_template('result.html', prediction=prediction, probabilities=probabilities, model=model_name)
 
     return render_template('index.html')
 

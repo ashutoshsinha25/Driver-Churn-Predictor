@@ -77,8 +77,10 @@
                 <strong class="text-green-600">The driver is not likely to churn.</strong>
                 {% endif %}
             </p>
-            <h3 class="text-lg font-medium mb-2">Prediction Probabilities:</h3>
+            <h3 class="text-lg font-medium mb-2">Prediction Details:</h3>
             <ul class="list-disc list-inside text-gray-700">
+
+                <li>Prediction model used: <strong>{{ model }}</strong></li>
                 <li>Probability of not churning: <strong>{{ "%.2f"|format(probabilities[0] * 100) }}%</strong></li>
                 <li>Probability of churning: <strong>{{ "%.2f"|format(probabilities[1] * 100) }}%</strong></li>
             </ul>

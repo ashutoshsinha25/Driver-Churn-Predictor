@@ -67,6 +67,15 @@
         <form id="predictionForm" method="POST" class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md mb-8">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
+                    <label for="model_val" class="block mb-1 text-sm font-medium">Model Selector</label>
+                    <select id="model_val" name="model_val" class="input-box" required>
+                        <option value="1">Decision Tree</option>
+                        <option value="2">Random Forest</option>
+                        <option value="3">XGBoost</option>
+                        <option value="4">LightGBM</option>
+                    </select>
+                </div>
+                <div>
                     <label for="months_worked" class="block mb-1 text-sm font-medium">Total Months Worked</label>
                     <input type="number" id="months_worked" name="months_worked" class="input-box" required>
                 </div>

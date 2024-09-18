@@ -1,9 +1,12 @@
 from utils.model_utils import load_model
 
-class RandomForestModel:
-    def __init__(self, model_path="artifacts/model_lightgbm_model.pkl"):
-        self.model = load_model(model_path)
+class LightGBModel:
+    def __init__(self, model_path="artifacts/lightgbm.pkl"):
+        self.model_obj = load_model(model_path)
 
+    def __str__(self):
+        return "Light Gradient Boosting Machine [lightGBM]"
+    
     def predict(self, features):
         return self.model.predict(features)
     

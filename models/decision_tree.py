@@ -4,6 +4,9 @@ class DecisionTreeModel:
     def __init__(self, model_path="artifacts/decision_tree.pkl"):
         self.model_obj = load_model(model_path)
 
+    def __str__(self):
+        return "Decision Tree Model"
+
     def predict(self, features):
         return self.model.predict(features)
     

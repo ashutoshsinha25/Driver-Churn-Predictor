@@ -1,8 +1,11 @@
 from utils.model_utils import load_model
 
 class RandomForestModel:
-    def __init__(self, model_path="artifacts/model_random_forest_v1.pkl"):
-        self.model = load_model(model_path)
+    def __init__(self, model_path="artifacts/random_forest.pkl"):
+        self.model_obj = load_model(model_path)
+
+    def __str__(self):
+        return "Ranfom Forest Model"
 
     def predict(self, features):
         return self.model.predict(features)
