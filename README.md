@@ -24,14 +24,12 @@ The project is organized into the following folders:
 
 To run the project, follow these steps:
 
-1. **Install dependencies:**
-   - Make sure you have Python and the required dependencies installed. You can install the dependencies by running the following command in the project directory:
+1. **Install dependencies:** Make sure you have Python and the required dependencies installed. You can install the dependencies by running the following command in the project directory:
 
    ```bash
    pip install -r requirements.txt
 
-3. Run the Flask application:
-   - Start the Flask development server by running the following command:
+3. Run the Flask application: Start the Flask development server by running the following command:
 
     ```bash 
     python main.py
