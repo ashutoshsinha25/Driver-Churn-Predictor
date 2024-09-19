@@ -17,5 +17,3 @@ flask-cors
 Flask
 python-dotenv
 
-
--e
