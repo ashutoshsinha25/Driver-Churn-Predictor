@@ -29,7 +29,13 @@ To run the project, follow these steps:
    ```bash
    pip install -r requirements.txt
 
-3. Run the Flask application: Start the Flask development server by running the following command:
+2. Run the Flask application: Start the Flask development server by running the following command:
 
     ```bash 
     python main.py
+
+3. Running Unit Tests: 
+   ```bash 
+   pytest test_api.py
+   pytest test_model.py
+
