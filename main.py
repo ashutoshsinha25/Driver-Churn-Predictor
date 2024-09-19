@@ -1,10 +1,9 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify  
 from utils.data_preprocessing import DataPreprocessor
 from models.decision_tree import DecisionTreeModel
 from models.random_forest import RandomForestModel
 from models.xgboost_model import XGBoostModel 
 from models.lightgbm_model import LightGBModel
-
 
 app = Flask(__name__)
 
@@ -37,6 +36,21 @@ def init_model(val):
         return XGBoostModel()
     else:
         return LightGBModel()
+
+
+@app.route("/ping", methods=["GET"])
+def pinger():
+    return {"MESSAGE" : "Hi, I am Pinging V1...!!!!!"}
+
+@app.route("/model_test", methods=['POST'])
+def make_prediction():
+    data = request.json
+    # DT model 
+    m = DecisionTreeModel()
+    features = DataPreprocessor().process_data(data)
+    prediction = m.model_obj.predict(features)
+    prediction = prediction.tolist()[0]
+    return jsonify({"Model_Prediction" : prediction})
 
 
 @app.route('/app', methods=['GET', 'POST'])
