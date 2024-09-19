@@ -42,7 +42,7 @@ def init_model(val):
 def pinger():
     return {"MESSAGE" : "Hi, I am Pinging V1...!!!!!"}
 
-@app.route("/model_test", methods=['POST'])
+@app.route("/api_test", methods=['POST'])
 def make_prediction():
     data = request.json
     # DT model 
@@ -51,6 +51,19 @@ def make_prediction():
     prediction = m.model_obj.predict(features)
     prediction = prediction.tolist()[0]
     return jsonify({"Model_Prediction" : prediction})
+
+
+
+@app.route("/model_test", methods=['GET'])
+def get_model():
+    models = []
+    for i in ["1","2","3","4"]:
+        m = init_model(i)
+        name = m.__str__()
+        models.append(name)
+    return jsonify({"Model_List" : models})
+
+
 
 
 @app.route('/app', methods=['GET', 'POST'])

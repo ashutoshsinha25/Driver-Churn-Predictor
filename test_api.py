@@ -28,6 +28,6 @@ def test_predict(client):
     "quarterly_rating_increased":0,
     "income_increased":0
     }
-    resp = client.post('/model_test', json = test_data)
+    resp = client.post('/api_test', json = test_data)
     assert resp.status_code == 200
     assert resp.json == {"Model_Prediction" : 0} or resp.json == {"Model_Prediction" : 1}
