@@ -53,7 +53,6 @@ def make_prediction():
     return jsonify({"Model_Prediction" : prediction})
 
 
-
 @app.route("/model_test", methods=['GET'])
 def get_model():
     models = []
@@ -63,11 +62,8 @@ def get_model():
         models.append(name)
     return jsonify({"Model_List" : models})
 
-
-
-
-@app.route('/app', methods=['GET', 'POST'])
-def index():
+@app.route('/', methods=['GET', 'POST'])
+def predict():
     if request.method == 'POST':
         # Read data
         input_data = read_data(request.form)
@@ -75,15 +71,22 @@ def index():
         # Initialize the model
         model = init_model(model_val)
         model_name = model.__str__()
+        # print("Model:", model_name)
         # # Process data
         features = DataPreprocessor().process_data(input_data)
         # # # Make prediction
         prediction = model.model_obj.predict(features)
+        # print("Prediction:", prediction)
         # # # Get prediction probabilities
         probabilities = model.model_obj.predict_proba(features)[0]
-        return render_template('result.html', prediction=prediction, probabilities=probabilities, model=model_name)
-
+        # print("Prediction Probabilities:", probabilities)
+        return jsonify({
+            'prediction': prediction.tolist(),
+            'probabilities': probabilities.tolist(),
+            'model': model_name
+        })
+        # return render_template('result.html', prediction=prediction, probabilities=probabilities, model=model_name)
     return render_template('index.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=8000)

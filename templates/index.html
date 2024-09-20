@@ -156,7 +156,48 @@
         </div>
     </footer>
 
+
+
+
     <script>
+        document.getElementById('predictionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            fetch('/', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                const resultHtml = `
+                    <h1 class="text-3xl font-bold text-center mb-6">Driver Churn Prediction Results</h1>
+                    <section class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
+                        <h2 class="text-xl font-semibold mb-4">Prediction Summary</h2>
+                        <p class="text-gray-700 mb-4">
+                            ${data.prediction === 1 
+                                ? '<strong class="text-red-600">The driver is likely to churn.</strong>'
+                                : '<strong class="text-green-600">The driver is not likely to churn.</strong>'}
+                        </p>
+                        <h3 class="text-lg font-medium mb-2">Prediction Details:</h3>
+                        <ul class="list-disc list-inside text-gray-700">
+                            <li>Prediction model used: <strong>${data.model}</strong></li>
+                            <li>Probability of not churning: <strong>${(data.probabilities[0] * 100).toFixed(2)}%</strong></li>
+                            <li>Probability of churning: <strong>${(data.probabilities[1] * 100).toFixed(2)}%</strong></li>
+                        </ul>
+                        <button onclick="location.reload()" class="streamlit-button w-full py-2 px-4 rounded font-medium mt-6 text-center block">Make Another Prediction</button>
+                    </section>
+                `;
+                document.querySelector('main').innerHTML = resultHtml;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while processing your request. Please try again.');
+            });
+        });
+    </script>
+
+
+    <!-- <script>
         document.getElementById('predictionForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const formData = new FormData(e.target);
@@ -176,6 +217,7 @@
         });
         }
     )
-    </script>
+    </script> -->
+
 </body>
 </html>
