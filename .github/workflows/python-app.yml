@@ -20,6 +20,8 @@ jobs:
             - name: Running testcases
               run:
                 pytest test_api.py 
+                pytest test_model.py 
+            
 
         
 
