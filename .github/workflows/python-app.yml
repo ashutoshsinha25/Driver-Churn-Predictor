@@ -17,9 +17,11 @@ jobs:
             - name: Installing dependencies 
               run: 
                 pip install -r requirements.txt
-            - name: Running testcases
+            - name: Running api testcases
               run:
                 pytest test_api.py 
+            - name: Running model testcase 
+              run: 
                 pytest test_model.py 
             
 
