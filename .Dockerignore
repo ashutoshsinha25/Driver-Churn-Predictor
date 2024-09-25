@@ -9,3 +9,4 @@ artifacts/eval_metrics.csv
 
 
 __pycache__
+.pytest_cache
