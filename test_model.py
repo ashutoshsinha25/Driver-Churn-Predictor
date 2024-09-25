@@ -12,7 +12,7 @@ def test_models(client):
     assert resp.status_code == 200
     assert resp.json == {"Model_List" : ["Decision Tree Model" , "Ranfom Forest Model", \
                                          "Extreme Gradient Boosted Machine [xgboost]", \
-                                            "Light Gradient Boosting Machine [lightGBM]"]}
+                                            "Light Gradient Boosting Machine [lightGBM]","ExtraModel"]}
 
 
     
