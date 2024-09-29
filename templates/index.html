@@ -161,11 +161,11 @@
                 </div>
                 <div>
                     <label for="joining_designation" class="block mb-1 text-sm font-medium">Joining Designation</label>
-                    <input type="number" id="joining_designation" name="joining_designation" class="input-box" required>
+                    <input type="number" id="joining_designation" name="joining_designation" class="input-box" min="1" max="5" step="1" required>
                 </div>
                 <div>
                     <label for="grade" class="block mb-1 text-sm font-medium">Grade</label>
-                    <input type="number" id="grade" name="grade" class="input-box" required>
+                    <input type="number" id="grade" name="grade" class="input-box" min="1" max="5" step="1" required>
                 </div>
                 <div>
                     <label for="total_business_value" class="block mb-1 text-sm font-medium">Total Business Value</label>
@@ -173,7 +173,7 @@
                 </div>
                 <div>
                     <label for="quarterly_rating" class="block mb-1 text-sm font-medium">Quarterly Rating (1-5)</label>
-                    <input type="number" id="quarterly_rating" name="quarterly_rating" min="1" max="5" class="input-box" required>
+                    <input type="number" id="quarterly_rating" name="quarterly_rating" min="1" max="5" step="1" class="input-box" required>
                 </div>
                 <div>
                     <label for="quarterly_rating_increase" class="block mb-1 text-sm font-medium">Quarterly Rating Increase</label>

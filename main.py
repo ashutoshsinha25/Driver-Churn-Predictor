@@ -40,7 +40,7 @@ def init_model(val):
 
 @app.route("/ping", methods=["GET"])
 def pinger():
-    return {"MESSAGE" : "Hi, I am Pinging V1...!!!!!"}
+    return {"MESSAGE" : "Hi, I am Pinging V3...!!!!!"}
 
 @app.route("/api_test", methods=['POST'])
 def make_prediction():
