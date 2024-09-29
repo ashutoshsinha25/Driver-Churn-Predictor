@@ -44,3 +44,13 @@ To run the project, follow these steps:
    pytest test_api.py
    pytest test_model.py
 
+4. Running with Docker:
+   a. Build the Docker image: In your project root directory, run the following command:
+      ```bash 
+      docker build -t driver-churn-predictor .
+   b. Run the Docker container: After building the image, run the following command:
+      ```bash
+      docker run -p 8000:8000 driver-churn-predictor 
+   c. Access the application: Open your web browser and navigate to http://localhost:8000 to access the Flask application.
+
+
