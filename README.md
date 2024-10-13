@@ -27,6 +27,7 @@ The project is organized into the following folders:
 
 
 
+
 ## Running the Project
 
 To run the project, follow these steps:
@@ -50,6 +51,26 @@ To run the project, follow these steps:
 
    ```bash
    pip install -r requirements.txt
+   ```
+
+   **Note for macOS users:** XGBoost requires `libomp` for parallel computation. You need to install `libomp` via Homebrew:
+   
+   ```bash
+   brew install libomp
+   ```
+
+   If you encounter issues with `libomp` not being found, ensure that your environment is set up correctly by adding the following to your `.zshrc` or `.bashrc`:
+
+   ```bash
+   export LIBOMP_PATH=$(brew --prefix libomp)/lib
+   export DYLD_LIBRARY_PATH=$LIBOMP_PATH:$DYLD_LIBRARY_PATH
+   ```
+
+   Reload your shell configuration:
+   ```bash
+   source ~/.zshrc   # for zsh users
+   # or
+   source ~/.bashrc  # for bash users
    ```
 
 3. **Run the Flask application:** Start the Flask development server by running:
@@ -79,5 +100,3 @@ To run the project, follow these steps:
      ```
 
    - **Access the application:** Open your web browser and navigate to `http://localhost:8000` to access the Flask application.
-
-
