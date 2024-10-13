@@ -25,35 +25,59 @@ The project is organized into the following folders:
 * `setup.py`: This file is used to configure the project for packaging and distribution.
 * `template.py`: This file contains the code for the Flask template used to render the prediction form.
 
+
+
 ## Running the Project
 
 To run the project, follow these steps:
 
-1. **Install dependencies:** Make sure you have Python and the required dependencies installed. You can install the dependencies by running the following command in the project directory:
+1. **Create a virtual environment:**
+   Choose one of the following methods to create a Python 3.9 environment:
+
+   - **Using Conda:**
+     ```bash
+     conda create --name driver-churn-predictor python=3.9
+     conda activate driver-churn-predictor
+     ```
+
+   - **Using Python `venv` module:**
+     ```bash
+     python3 -m venv driver-churn-env
+     source driver-churn-env/bin/activate  # On Windows, use `driver-churn-env\Scripts\activate`
+     ```
+
+2. **Install dependencies:** After creating the virtual environment, install the required dependencies by running the following command in the project directory:
 
    ```bash
    pip install -r requirements.txt
+   ```
 
-2. Run the Flask application: Start the Flask development server by running the following command:
+3. **Run the Flask application:** Start the Flask development server by running:
 
     ```bash 
     python main.py
+    ```
 
-3. Running Unit Tests: 
-   ```bash 
+4. **Running Unit Tests:**
+   To run the unit tests for the project, use the following commands:
+   
+   ```bash
    pytest test_api.py
    pytest test_model.py
+   ```
 
-4. Running with Docker:
+5. **Running with Docker:**
 
-   - Build the Docker image: In your project root directory, run the following command:
-      ```bash 
-      docker build -t driver-churn-predictor .
-   
-   - Run the Docker container: After building the image, run the following command:
-      ```bash
-      docker run -p 8000:8000 driver-churn-predictor 
-   
-   - Access the application: Open your web browser and navigate to http://localhost:8000 to access the Flask application.
+   - **Build the Docker image:** In your project root directory, run the following command:
+     ```bash
+     docker build -t driver-churn-predictor .
+     ```
+
+   - **Run the Docker container:** After building the image, run the container:
+     ```bash
+     docker run -p 8000:8000 driver-churn-predictor
+     ```
+
+   - **Access the application:** Open your web browser and navigate to `http://localhost:8000` to access the Flask application.
 
 
